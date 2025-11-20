@@ -9,8 +9,10 @@ interface ProductForm {
   price: string;
   category: string;
   type: string;
-  imageUrl: string;
-  listingUrl: string;
+  images: string;
+  description: string;
+  tags: string;
+  etsyId: string;
 }
 
 interface ProductModalProps {
@@ -40,6 +42,21 @@ export function ProductModal({
       return;
     }
 
+    // Parse comma-separated strings into arrays
+    const imagesArray = productForm.images
+      .split(",")
+      .map((url) => url.trim())
+      .filter((url) => url.length > 0);
+    const tagsArray = productForm.tags
+      .split(",")
+      .map((tag) => tag.trim())
+      .filter((tag) => tag.length > 0);
+
+    if (imagesArray.length === 0) {
+      alert("Please provide at least one image URL");
+      return;
+    }
+
     try {
       if (productForm.id) {
         await updateProduct({
@@ -48,8 +65,10 @@ export function ProductModal({
           price: parseFloat(productForm.price),
           category: productForm.category as Id<"categories">,
           type: productForm.type as Id<"types">,
-          imageUrl: productForm.imageUrl,
-          listingUrl: productForm.listingUrl,
+          images: imagesArray,
+          description: productForm.description,
+          tags: tagsArray,
+          etsyId: productForm.etsyId || undefined,
         });
       } else {
         await createProduct({
@@ -57,8 +76,10 @@ export function ProductModal({
           price: parseFloat(productForm.price),
           category: productForm.category as Id<"categories">,
           type: productForm.type as Id<"types">,
-          imageUrl: productForm.imageUrl,
-          listingUrl: productForm.listingUrl,
+          images: imagesArray,
+          description: productForm.description,
+          tags: tagsArray,
+          etsyId: productForm.etsyId || undefined,
         });
       }
       onClose();
@@ -67,8 +88,10 @@ export function ProductModal({
         price: "",
         category: "",
         type: "",
-        imageUrl: "",
-        listingUrl: "",
+        images: "",
+        description: "",
+        tags: "",
+        etsyId: "",
       });
     } catch (error) {
       console.error("Error saving product:", error);
@@ -162,36 +185,68 @@ export function ProductModal({
           </div>
 
           <div>
-            <label htmlFor="product-image" className="block text-sm font-medium text-gray-700 mb-1">
-              Image URL
+            <label htmlFor="product-images" className="block text-sm font-medium text-gray-700 mb-1">
+              Image URLs (comma-separated)
             </label>
-            <input
-              id="product-image"
-              type="url"
+            <textarea
+              id="product-images"
               required
-              value={productForm.imageUrl}
+              rows={3}
+              value={productForm.images}
               onChange={(e) =>
-                setProductForm({ ...productForm, imageUrl: e.target.value })
+                setProductForm({ ...productForm, images: e.target.value })
               }
+              placeholder="https://example.com/image1.jpg, https://example.com/image2.jpg"
               className="w-full px-3 py-2 border border-gray-300 rounded-md focus:ring-1 focus:ring-black focus:outline-none"
             />
           </div>
 
           <div>
-            <label htmlFor="product-listing" className="block text-sm font-medium text-gray-700 mb-1">
-              Listing URL
+            <label htmlFor="product-description" className="block text-sm font-medium text-gray-700 mb-1">
+              Description
+            </label>
+            <textarea
+              id="product-description"
+              required
+              rows={4}
+              value={productForm.description}
+              onChange={(e) =>
+                setProductForm({ ...productForm, description: e.target.value })
+              }
+              placeholder="Product description..."
+              className="w-full px-3 py-2 border border-gray-300 rounded-md focus:ring-1 focus:ring-black focus:outline-none"
+            />
+          </div>
+
+          <div>
+            <label htmlFor="product-tags" className="block text-sm font-medium text-gray-700 mb-1">
+              Tags (comma-separated)
             </label>
             <input
-              id="product-listing"
-              type="url"
+              id="product-tags"
+              type="text"
               required
-              value={productForm.listingUrl}
+              value={productForm.tags}
               onChange={(e) =>
-                setProductForm({
-                  ...productForm,
-                  listingUrl: e.target.value,
-                })
+                setProductForm({ ...productForm, tags: e.target.value })
               }
+              placeholder="tag1, tag2, tag3"
+              className="w-full px-3 py-2 border border-gray-300 rounded-md focus:ring-1 focus:ring-black focus:outline-none"
+            />
+          </div>
+
+          <div>
+            <label htmlFor="product-etsyid" className="block text-sm font-medium text-gray-700 mb-1">
+              Etsy ID (optional)
+            </label>
+            <input
+              id="product-etsyid"
+              type="text"
+              value={productForm.etsyId}
+              onChange={(e) =>
+                setProductForm({ ...productForm, etsyId: e.target.value })
+              }
+              placeholder="12345678"
               className="w-full px-3 py-2 border border-gray-300 rounded-md focus:ring-1 focus:ring-black focus:outline-none"
             />
           </div>

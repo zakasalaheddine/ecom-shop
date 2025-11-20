@@ -3,8 +3,10 @@ export interface Product {
   title: string;
   price: number;
   category: string;
-  imageUrl: string;
+  images: string[];
   description: string;
+  tags: string[];
+  etsyId?: string;
 }
 
 export interface Category {

@@ -206,7 +206,7 @@ const App: React.FC = () => {
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
                   <div className="aspect-square w-full overflow-hidden rounded-lg bg-gray-100">
                     <img
-                      src={selectedProduct.imageUrl}
+                      src={selectedProduct.images[0]}
                       alt={selectedProduct.title}
                       className="h-full w-full object-cover object-center"
                     />

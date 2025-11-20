@@ -66,6 +66,6 @@ export const bulkImport = mutation({
 export const exportData = query({
   handler: async (ctx) => {
     const categories = await ctx.db.query("categories").collect();
-    return categories.map(({ _id, _creationTime, ...rest }) => rest);
+    return categories.map(({ _creationTime, ...rest }) => rest);
   },
 });

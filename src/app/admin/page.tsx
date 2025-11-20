@@ -22,8 +22,10 @@ interface ProductForm {
   price: string
   category: string
   type: string
-  imageUrl: string
-  listingUrl: string
+  images: string
+  description: string
+  tags: string
+  etsyId: string
 }
 
 interface CategoryForm {
@@ -53,8 +55,10 @@ export default function AdminPage() {
     price: '',
     category: '',
     type: '',
-    imageUrl: '',
-    listingUrl: ''
+    images: '',
+    description: '',
+    tags: '',
+    etsyId: ''
   })
 
   const [categoryForm, setCategoryForm] = useState<CategoryForm>({
@@ -73,8 +77,10 @@ export default function AdminPage() {
     price: number
     category: Id<'categories'>
     type: Id<'types'>
-    imageUrl: string
-    listingUrl: string
+    images: string[]
+    description: string
+    tags: string[]
+    etsyId?: string
   }) => {
     setProductForm({
       id: product._id,
@@ -82,8 +88,10 @@ export default function AdminPage() {
       price: product.price.toString(),
       category: product.category,
       type: product.type,
-      imageUrl: product.imageUrl,
-      listingUrl: product.listingUrl
+      images: product.images.join(', '),
+      description: product.description,
+      tags: product.tags.join(', '),
+      etsyId: product.etsyId || ''
     })
     setShowProductModal(true)
   }
@@ -179,8 +187,10 @@ export default function AdminPage() {
                         price: '',
                         category: '',
                         type: '',
-                        imageUrl: '',
-                        listingUrl: ''
+                        images: '',
+                        description: '',
+                        tags: '',
+                        etsyId: ''
                       })
                       setShowProductModal(true)
                     }}

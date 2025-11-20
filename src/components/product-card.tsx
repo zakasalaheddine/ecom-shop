@@ -22,7 +22,7 @@ export const ProductCard: React.FC<ProductCardProps> = ({
     >
       <div className="relative aspect-4/5 w-full overflow-hidden rounded-xl bg-gray-100">
         <img
-          src={product.imageUrl}
+          src={product.images[0]}
           alt={product.title}
           className="h-full w-full object-cover object-center transition-transform duration-500 group-hover:scale-105"
           loading="lazy"

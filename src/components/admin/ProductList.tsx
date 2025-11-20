@@ -13,8 +13,10 @@ interface Product {
   price: number;
   category: Id<"categories">;
   type: Id<"types">;
-  imageUrl: string;
-  listingUrl: string;
+  images: string[];
+  description: string;
+  tags: string[];
+  etsyId?: string;
   categoryLabel: string;
   typeLabel: string;
 }
@@ -35,12 +37,12 @@ export function ProductList({ products, onEdit }: ProductListProps) {
 
   const columns: ColumnDef<Product>[] = [
     {
-      accessorKey: "imageUrl",
+      accessorKey: "images",
       header: "Image",
       cell: ({ row }) => (
         <div className="w-16 h-16 overflow-hidden rounded-md bg-gray-100">
           <img
-            src={row.original.imageUrl}
+            src={row.original.images[0]}
             alt={row.original.title}
             className="w-full h-full object-cover"
           />

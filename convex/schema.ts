@@ -15,7 +15,9 @@ export default defineSchema({
     price: v.number(),
     category: v.id("categories"),
     type: v.id("types"),
-    imageUrl: v.string(),
-    listingUrl: v.string(),
+    images: v.array(v.string()),
+    description: v.string(),
+    tags: v.array(v.string()),
+    etsyId: v.optional(v.string()),
   }),
 });

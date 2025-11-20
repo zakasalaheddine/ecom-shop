@@ -28,8 +28,10 @@ export const create = mutation({
     price: v.number(),
     category: v.id("categories"),
     type: v.id("types"),
-    imageUrl: v.string(),
-    listingUrl: v.string(),
+    images: v.array(v.string()),
+    description: v.string(),
+    tags: v.array(v.string()),
+    etsyId: v.optional(v.string()),
   },
   handler: async (ctx, args) => {
     return await ctx.db.insert("products", {
@@ -37,8 +39,10 @@ export const create = mutation({
       price: args.price,
       category: args.category,
       type: args.type,
-      imageUrl: args.imageUrl,
-      listingUrl: args.listingUrl,
+      images: args.images,
+      description: args.description,
+      tags: args.tags,
+      etsyId: args.etsyId,
     });
   },
 });
@@ -50,8 +54,10 @@ export const update = mutation({
     price: v.number(),
     category: v.id("categories"),
     type: v.id("types"),
-    imageUrl: v.string(),
-    listingUrl: v.string(),
+    images: v.array(v.string()),
+    description: v.string(),
+    tags: v.array(v.string()),
+    etsyId: v.optional(v.string()),
   },
   handler: async (ctx, args) => {
     const { id, ...data } = args;
@@ -76,8 +82,10 @@ export const bulkImport = mutation({
         price: v.number(),
         category: v.id("categories"),
         type: v.id("types"),
-        imageUrl: v.string(),
-        listingUrl: v.string(),
+        images: v.array(v.string()),
+        description: v.string(),
+        tags: v.array(v.string()),
+        etsyId: v.optional(v.string()),
       })
     ),
   },
@@ -89,8 +97,10 @@ export const bulkImport = mutation({
           price: product.price,
           category: product.category,
           type: product.type,
-          imageUrl: product.imageUrl,
-          listingUrl: product.listingUrl,
+          images: product.images,
+          description: product.description,
+          tags: product.tags,
+          etsyId: product.etsyId,
         })
       )
     );
@@ -101,6 +111,6 @@ export const bulkImport = mutation({
 export const exportData = query({
   handler: async (ctx) => {
     const products = await ctx.db.query("products").collect();
-    return products.map(({ _id, _creationTime, ...rest }) => rest);
+    return products.map(({ _creationTime, ...rest }) => rest);
   },
 });
