@@ -1,0 +1,14 @@
+[
+  {
+    "label": "Casual",
+    "imageUrl": "https://images.unsplash.com/photo-1583743814966-8936f5b7be1a?w=400"
+  },
+  {
+    "label": "Formal",
+    "imageUrl": "https://images.unsplash.com/photo-1507679799987-c73779587ccf?w=400"
+  },
+  {
+    "label": "Sport",
+    "imageUrl": "https://images.unsplash.com/photo-1461896836934-ffe607ba8211?w=400"
+  }
+]

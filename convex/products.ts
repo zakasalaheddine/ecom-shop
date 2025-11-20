@@ -67,3 +67,40 @@ export const remove = mutation({
     await ctx.db.delete(args.id);
   },
 });
+
+export const bulkImport = mutation({
+  args: {
+    products: v.array(
+      v.object({
+        title: v.string(),
+        price: v.number(),
+        category: v.id("categories"),
+        type: v.id("types"),
+        imageUrl: v.string(),
+        listingUrl: v.string(),
+      })
+    ),
+  },
+  handler: async (ctx, args) => {
+    const results = await Promise.all(
+      args.products.map((product) =>
+        ctx.db.insert("products", {
+          title: product.title,
+          price: product.price,
+          category: product.category,
+          type: product.type,
+          imageUrl: product.imageUrl,
+          listingUrl: product.listingUrl,
+        })
+      )
+    );
+    return results;
+  },
+});
+
+export const exportData = query({
+  handler: async (ctx) => {
+    const products = await ctx.db.query("products").collect();
+    return products.map(({ _id, _creationTime, ...rest }) => rest);
+  },
+});

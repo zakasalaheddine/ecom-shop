@@ -6,3 +6,4 @@ export { CategoryList } from "./CategoryList";
 export { TypeModal } from "./TypeModal";
 export { TypeList } from "./TypeList";
 export { DataTable } from "./DataTable";
+export { ImportExport } from "./ImportExport";

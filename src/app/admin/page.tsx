@@ -11,6 +11,7 @@ import { CategoryModal } from "@/components/admin/CategoryModal";
 import { CategoryList } from "@/components/admin/CategoryList";
 import { TypeModal } from "@/components/admin/TypeModal";
 import { TypeList } from "@/components/admin/TypeList";
+import { ImportExport } from "@/components/admin/ImportExport";
 
 type TabType = "products" | "categories" | "types";
 
@@ -178,24 +179,27 @@ export default function AdminPage() {
                 <h2 className="text-xl font-semibold text-gray-900">
                   Products ({products?.length || 0})
                 </h2>
-                <button
-                  type="button"
-                  onClick={() => {
-                    setProductForm({
-                      title: "",
-                      price: "",
-                      category: "",
-                      type: "",
-                      imageUrl: "",
-                      listingUrl: "",
-                    });
-                    setShowProductModal(true);
-                  }}
-                  className="bg-black text-white px-4 py-2 rounded-md font-medium hover:bg-gray-800 transition-colors flex items-center gap-2"
-                >
-                  <Plus className="h-4 w-4" />
-                  Add Product
-                </button>
+                <div className="flex gap-3">
+                  <ImportExport type="products" />
+                  <button
+                    type="button"
+                    onClick={() => {
+                      setProductForm({
+                        title: "",
+                        price: "",
+                        category: "",
+                        type: "",
+                        imageUrl: "",
+                        listingUrl: "",
+                      });
+                      setShowProductModal(true);
+                    }}
+                    className="bg-black text-white px-4 py-2 rounded-md font-medium hover:bg-gray-800 transition-colors flex items-center gap-2"
+                  >
+                    <Plus className="h-4 w-4" />
+                    Add Product
+                  </button>
+                </div>
               </div>
 
               <ProductList products={products} onEdit={handleEditProduct} />
@@ -209,17 +213,20 @@ export default function AdminPage() {
                 <h2 className="text-xl font-semibold text-gray-900">
                   Categories ({categories?.length || 0})
                 </h2>
-                <button
-                  type="button"
-                  onClick={() => {
-                    setCategoryForm({ label: "", imageUrl: "" });
-                    setShowCategoryModal(true);
-                  }}
-                  className="bg-black text-white px-4 py-2 rounded-md font-medium hover:bg-gray-800 transition-colors flex items-center gap-2"
-                >
-                  <Plus className="h-4 w-4" />
-                  Add Category
-                </button>
+                <div className="flex gap-3">
+                  <ImportExport type="categories" />
+                  <button
+                    type="button"
+                    onClick={() => {
+                      setCategoryForm({ label: "", imageUrl: "" });
+                      setShowCategoryModal(true);
+                    }}
+                    className="bg-black text-white px-4 py-2 rounded-md font-medium hover:bg-gray-800 transition-colors flex items-center gap-2"
+                  >
+                    <Plus className="h-4 w-4" />
+                    Add Category
+                  </button>
+                </div>
               </div>
 
               <CategoryList categories={categories} onEdit={handleEditCategory} />
@@ -233,17 +240,20 @@ export default function AdminPage() {
                 <h2 className="text-xl font-semibold text-gray-900">
                   Types ({types?.length || 0})
                 </h2>
-                <button
-                  type="button"
-                  onClick={() => {
-                    setTypeForm({ label: "", imageUrl: "" });
-                    setShowTypeModal(true);
-                  }}
-                  className="bg-black text-white px-4 py-2 rounded-md font-medium hover:bg-gray-800 transition-colors flex items-center gap-2"
-                >
-                  <Plus className="h-4 w-4" />
-                  Add Type
-                </button>
+                <div className="flex gap-3">
+                  <ImportExport type="types" />
+                  <button
+                    type="button"
+                    onClick={() => {
+                      setTypeForm({ label: "", imageUrl: "" });
+                      setShowTypeModal(true);
+                    }}
+                    className="bg-black text-white px-4 py-2 rounded-md font-medium hover:bg-gray-800 transition-colors flex items-center gap-2"
+                  >
+                    <Plus className="h-4 w-4" />
+                    Add Type
+                  </button>
+                </div>
               </div>
 
               <TypeList types={types} onEdit={handleEditType} />

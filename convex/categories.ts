@@ -40,3 +40,32 @@ export const remove = mutation({
     await ctx.db.delete(args.id);
   },
 });
+
+export const bulkImport = mutation({
+  args: {
+    categories: v.array(
+      v.object({
+        label: v.string(),
+        imageUrl: v.string(),
+      })
+    ),
+  },
+  handler: async (ctx, args) => {
+    const results = await Promise.all(
+      args.categories.map((category) =>
+        ctx.db.insert("categories", {
+          label: category.label,
+          imageUrl: category.imageUrl,
+        })
+      )
+    );
+    return results;
+  },
+});
+
+export const exportData = query({
+  handler: async (ctx) => {
+    const categories = await ctx.db.query("categories").collect();
+    return categories.map(({ _id, _creationTime, ...rest }) => rest);
+  },
+});
