@@ -9,6 +9,7 @@ interface Product {
   _id: string;
   title: string;
   price: number;
+  category: string; // This is the category ID
   categoryLabel: string;
   images: string[];
   description: string;
@@ -31,11 +32,18 @@ export function ShopClient({ initialProducts, categories }: ShopClientProps) {
   const [activeCategory, setActiveCategory] = useState("all");
   const [selectedProduct, setSelectedProduct] = useState<Product | null>(null);
 
-  // Filter products based on active category
+  // Filter products based on active category ID
   const filteredProducts = useMemo(() => {
     if (activeCategory === "all") return initialProducts;
-    return initialProducts.filter((p) => p.categoryLabel.toLowerCase() === activeCategory.toLowerCase());
+    return initialProducts.filter((p) => p.category === activeCategory);
   }, [activeCategory, initialProducts]);
+
+  // Get the active category label for display
+  const activeCategoryLabel = useMemo(() => {
+    if (activeCategory === "all") return "all";
+    const category = categories.find((c) => c._id === activeCategory);
+    return category?.label || "all";
+  }, [activeCategory, categories]);
 
   const handleProductClick = (product: Product) => {
     setSelectedProduct(product);
@@ -50,15 +58,16 @@ export function ShopClient({ initialProducts, categories }: ShopClientProps) {
         <CategoryFilter
           activeCategory={activeCategory}
           onCategoryChange={setActiveCategory}
+          categories={categories}
         />
       </div>
 
       {/* Section Header */}
       <div className="flex items-center justify-between mb-8 border-b border-gray-100 pb-4">
         <h2 className="text-xl md:text-2xl font-bold text-gray-900">
-          {activeCategory === "all"
+          {activeCategoryLabel === "all"
             ? "Latest Arrivals"
-            : `${activeCategory.charAt(0).toUpperCase() + activeCategory.slice(1)} Collection`}
+            : `${activeCategoryLabel.charAt(0).toUpperCase() + activeCategoryLabel.slice(1)} Collection`}
         </h2>
         <span className="text-sm text-gray-500">
           {filteredProducts.length} items
@@ -84,6 +93,7 @@ export function ShopClient({ initialProducts, categories }: ShopClientProps) {
               _id: p.id,
               title: p.title,
               price: p.price,
+              category: product.category, // Use the original category ID
               categoryLabel: p.category,
               images: p.images,
               description: p.description,

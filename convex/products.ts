@@ -12,6 +12,7 @@ export const list = query({
 
         return {
           ...product,
+          category: product.category, // Keep the category ID for filtering
           categoryLabel: category?.label || "Unknown",
           typeLabel: type?.label || "Unknown",
         };
