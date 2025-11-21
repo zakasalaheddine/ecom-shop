@@ -13,7 +13,7 @@ export default defineSchema({
   products: defineTable({
     title: v.string(),
     price: v.number(),
-    category: v.id("categories"),
+    categories: v.array(v.id("categories")),
     type: v.id("types"),
     images: v.array(v.string()),
     description: v.string(),

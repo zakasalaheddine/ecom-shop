@@ -11,13 +11,13 @@ interface Product {
   _id: Id<"products">;
   title: string;
   price: number;
-  category: Id<"categories">;
+  categories: Id<"categories">[];
   type: Id<"types">;
   images: string[];
   description: string;
   tags: string[];
   listing_url?: string;
-  categoryLabel: string;
+  categoryLabels: string[];
   typeLabel: string;
 }
 
@@ -83,13 +83,24 @@ export function ProductList({ products, categories, types, onEdit }: ProductList
       ),
     },
     {
-      accessorKey: "categoryLabel",
-      header: "Category",
+      accessorKey: "categoryLabels",
+      header: "Categories",
       cell: ({ row }) => (
-        <span className="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-blue-100 text-blue-800 whitespace-nowrap">
-          {row.original.categoryLabel}
-        </span>
+        <div className="flex flex-wrap gap-1">
+          {row.original.categoryLabels.map((label, index) => (
+            <span
+              key={index}
+              className="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-blue-100 text-blue-800 whitespace-nowrap"
+            >
+              {label}
+            </span>
+          ))}
+        </div>
       ),
+      filterFn: (row, columnId, filterValue) => {
+        const categoryLabels = row.getValue(columnId) as string[];
+        return categoryLabels.includes(filterValue);
+      },
     },
     {
       accessorKey: "typeLabel",
@@ -154,7 +165,7 @@ export function ProductList({ products, categories, types, onEdit }: ProductList
 
   const filters = [
     {
-      columnId: "categoryLabel",
+      columnId: "categoryLabels",
       label: "Category",
       options: categoryOptions,
     },

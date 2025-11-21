@@ -9,8 +9,8 @@ interface Product {
   _id: string;
   title: string;
   price: number;
-  category: string; // This is the category ID
-  categoryLabel: string;
+  categories: string[]; // Array of category IDs
+  categoryLabels: string[];
   images: string[];
   description: string;
   tags: string[];
@@ -32,10 +32,10 @@ export function ShopClient({ initialProducts, categories }: ShopClientProps) {
   const [activeCategory, setActiveCategory] = useState("all");
   const [selectedProduct, setSelectedProduct] = useState<Product | null>(null);
 
-  // Filter products based on active category ID
+  // Filter products based on active category ID (products with multiple categories)
   const filteredProducts = useMemo(() => {
     if (activeCategory === "all") return initialProducts;
-    return initialProducts.filter((p) => p.category === activeCategory);
+    return initialProducts.filter((p) => p.categories.includes(activeCategory));
   }, [activeCategory, initialProducts]);
 
   // Get the active category label for display
@@ -83,7 +83,7 @@ export function ShopClient({ initialProducts, categories }: ShopClientProps) {
               id: product._id,
               title: product.title,
               price: product.price,
-              category: product.categoryLabel,
+              category: product.categoryLabels.join(", "), // Join multiple categories for display
               images: product.images,
               description: product.description,
               tags: product.tags,
@@ -93,8 +93,8 @@ export function ShopClient({ initialProducts, categories }: ShopClientProps) {
               _id: p.id,
               title: p.title,
               price: p.price,
-              category: product.category, // Use the original category ID
-              categoryLabel: p.category,
+              categories: product.categories, // Use the original category IDs array
+              categoryLabels: product.categoryLabels,
               images: p.images,
               description: p.description,
               tags: p.tags,
@@ -167,10 +167,17 @@ export function ShopClient({ initialProducts, categories }: ShopClientProps) {
                     <h2 className="text-2xl font-bold text-gray-900 mb-2">
                       {selectedProduct.title}
                     </h2>
-                    <div className="flex items-center gap-3 mb-4">
-                      <p className="text-md text-gray-500 font-medium capitalize tracking-wide">
-                        {selectedProduct.categoryLabel}
-                      </p>
+                    <div className="flex items-center gap-3 mb-4 flex-wrap">
+                      <div className="flex gap-2">
+                        {selectedProduct.categoryLabels.map((label, index) => (
+                          <span
+                            key={index}
+                            className="text-xs px-2.5 py-0.5 rounded-full bg-gray-100 text-gray-600 font-medium capitalize tracking-wide"
+                          >
+                            {label}
+                          </span>
+                        ))}
+                      </div>
                       <span className="text-gray-300">•</span>
                       <p className="text-lg font-bold text-gray-900">
                         ${selectedProduct.price.toFixed(2)}

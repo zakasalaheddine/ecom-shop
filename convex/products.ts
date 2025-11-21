@@ -7,13 +7,17 @@ export const list = query({
 
     const productsWithDetails = await Promise.all(
       products.map(async (product) => {
-        const category = await ctx.db.get(product.category);
+        const categories = await Promise.all(
+          product.categories.map((catId) => ctx.db.get(catId))
+        );
         const type = await ctx.db.get(product.type);
 
         return {
           ...product,
-          category: product.category, // Keep the category ID for filtering
-          categoryLabel: category?.label || "Unknown",
+          categories: product.categories, // Keep the category IDs for filtering
+          categoryLabels: categories
+            .filter((cat) => cat !== null)
+            .map((cat) => cat!.label),
           typeLabel: type?.label || "Unknown",
         };
       })
@@ -27,7 +31,7 @@ export const create = mutation({
   args: {
     title: v.string(),
     price: v.number(),
-    category: v.id("categories"),
+    categories: v.array(v.id("categories")),
     type: v.id("types"),
     images: v.array(v.string()),
     description: v.string(),
@@ -38,7 +42,7 @@ export const create = mutation({
     return await ctx.db.insert("products", {
       title: args.title,
       price: args.price,
-      category: args.category,
+      categories: args.categories,
       type: args.type,
       images: args.images,
       description: args.description,
@@ -53,7 +57,7 @@ export const update = mutation({
     id: v.id("products"),
     title: v.string(),
     price: v.number(),
-    category: v.id("categories"),
+    categories: v.array(v.id("categories")),
     type: v.id("types"),
     images: v.array(v.string()),
     description: v.string(),
@@ -81,7 +85,7 @@ export const bulkImport = mutation({
       v.object({
         title: v.string(),
         price: v.number(),
-        category: v.id("categories"),
+        categories: v.array(v.id("categories")),
         type: v.id("types"),
         images: v.array(v.string()),
         description: v.string(),
@@ -96,7 +100,7 @@ export const bulkImport = mutation({
         ctx.db.insert("products", {
           title: product.title,
           price: product.price,
-          category: product.category,
+          categories: product.categories,
           type: product.type,
           images: product.images,
           description: product.description,

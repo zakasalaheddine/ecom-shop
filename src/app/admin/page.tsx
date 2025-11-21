@@ -20,7 +20,7 @@ interface ProductForm {
   id?: Id<'products'>
   title: string
   price: string
-  category: string
+  categories: string[]
   type: string
   images: string
   description: string
@@ -53,7 +53,7 @@ export default function AdminPage() {
   const [productForm, setProductForm] = useState<ProductForm>({
     title: '',
     price: '',
-    category: '',
+    categories: [],
     type: '',
     images: '',
     description: '',
@@ -75,7 +75,7 @@ export default function AdminPage() {
     _id: Id<'products'>
     title: string
     price: number
-    category: Id<'categories'>
+    categories: Id<'categories'>[]
     type: Id<'types'>
     images: string[]
     description: string
@@ -86,7 +86,7 @@ export default function AdminPage() {
       id: product._id,
       title: product.title,
       price: product.price.toString(),
-      category: product.category,
+      categories: product.categories,
       type: product.type,
       images: product.images.join(', '),
       description: product.description,
@@ -185,7 +185,7 @@ export default function AdminPage() {
                       setProductForm({
                         title: '',
                         price: '',
-                        category: '',
+                        categories: [],
                         type: '',
                         images: '',
                         description: '',
