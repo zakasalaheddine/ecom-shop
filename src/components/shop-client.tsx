@@ -20,7 +20,8 @@ interface Product {
 interface Category {
   _id: string;
   label: string;
-  imageUrl: string;
+  imageUrl?: string;
+  storageId?: string;
 }
 
 interface ShopClientProps {

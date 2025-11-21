@@ -4,7 +4,8 @@ import { v } from "convex/values";
 export default defineSchema({
   categories: defineTable({
     label: v.string(),
-    imageUrl: v.string(),
+    imageUrl: v.optional(v.string()),
+    storageId: v.optional(v.id("_storage")),
   }),
   types: defineTable({
     label: v.string(),

@@ -1,7 +1,10 @@
+import { getStorageUrl } from "@/lib/storage-utils";
+
 interface Category {
   _id: string;
   label: string;
-  imageUrl: string;
+  imageUrl?: string;
+  storageId?: string;
 }
 
 interface CategoryFilterProps {
@@ -15,9 +18,13 @@ export const CategoryFilter: React.FC<CategoryFilterProps> = ({
   onCategoryChange,
   categories,
 }) => {
-  // Add "all" category at the beginning
+  // Add "all" category at the beginning with storage ID
   const allCategories = [
-    { _id: "all", label: "All", imageUrl: "/placeholder-all.jpg" },
+    {
+      _id: "all",
+      label: "All",
+      imageUrl: getStorageUrl("kg2baczn6bvksv3wk2he0v9ps97vvqan")
+    },
     ...categories,
   ];
 
@@ -43,7 +50,7 @@ export const CategoryFilter: React.FC<CategoryFilterProps> = ({
             >
               <div className="w-full h-full rounded-full overflow-hidden relative bg-gray-100">
                 <img
-                  src={category.imageUrl}
+                  src={category.imageUrl || "/placeholder.jpg"}
                   alt={category.label}
                   className="w-full h-full object-cover object-center"
                 />

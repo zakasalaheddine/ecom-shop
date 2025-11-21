@@ -9,7 +9,9 @@
  */
 
 import type * as categories from "../categories.js";
+import type * as http from "../http.js";
 import type * as products from "../products.js";
+import type * as storage from "../storage.js";
 import type * as types from "../types.js";
 
 import type {
@@ -20,7 +22,9 @@ import type {
 
 declare const fullApi: ApiFromModules<{
   categories: typeof categories;
+  http: typeof http;
   products: typeof products;
+  storage: typeof storage;
   types: typeof types;
 }>;
 
