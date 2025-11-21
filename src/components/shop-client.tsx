@@ -1,7 +1,7 @@
 "use client";
 
 import { useState, useMemo } from "react";
-import { ShoppingBag } from "lucide-react";
+import { ExternalLink } from "lucide-react";
 import { CategoryFilter } from "@/components/category-filter";
 import { ProductCard } from "@/components/product-card";
 
@@ -167,9 +167,15 @@ export function ShopClient({ initialProducts, categories }: ShopClientProps) {
                     <h2 className="text-2xl font-bold text-gray-900 mb-2">
                       {selectedProduct.title}
                     </h2>
-                    <p className="text-md text-gray-500 font-medium mb-4 capitalize tracking-wide">
-                      {selectedProduct.categoryLabel}
-                    </p>
+                    <div className="flex items-center gap-3 mb-4">
+                      <p className="text-md text-gray-500 font-medium capitalize tracking-wide">
+                        {selectedProduct.categoryLabel}
+                      </p>
+                      <span className="text-gray-300">•</span>
+                      <p className="text-lg font-bold text-gray-900">
+                        ${selectedProduct.price.toFixed(2)}
+                      </p>
+                    </div>
 
                     <div className="mb-6">
                       <h3 className="text-sm font-medium text-gray-900">
@@ -180,30 +186,15 @@ export function ShopClient({ initialProducts, categories }: ShopClientProps) {
                       </p>
                     </div>
 
-                    <div className="mb-6">
-                      <h3 className="text-sm font-medium text-gray-900 mb-3">
-                        Size
-                      </h3>
-                      <div className="flex space-x-3">
-                        {["S", "M", "L", "XL"].map((size) => (
-                          <button
-                            type="button"
-                            key={size}
-                            className="w-10 h-10 rounded-md border border-gray-200 flex items-center justify-center hover:border-black hover:bg-gray-50 transition-all focus:ring-2 focus:ring-black focus:ring-offset-1 text-sm"
-                          >
-                            {size}
-                          </button>
-                        ))}
-                      </div>
-                    </div>
-
-                    <button
-                      type="button"
+                    <a
+                      href={selectedProduct.etsyId ? `https://www.etsy.com/listing/${selectedProduct.etsyId}` : '#'}
+                      target="_blank"
+                      rel="noopener noreferrer"
                       className="w-full bg-black text-white py-4 rounded-md font-medium hover:bg-gray-800 transition-colors flex items-center justify-center gap-2"
                     >
-                      <ShoppingBag size={18} />
-                      Add to Cart
-                    </button>
+                      <ExternalLink size={18} />
+                      View on Etsy
+                    </a>
                   </div>
                 </div>
               </div>

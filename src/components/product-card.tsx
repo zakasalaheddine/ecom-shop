@@ -1,4 +1,4 @@
-import { ShoppingBag } from "lucide-react";
+import { Info } from "lucide-react";
 import type { Product } from "@/types";
 
 interface ProductCardProps {
@@ -32,7 +32,7 @@ export const ProductCard: React.FC<ProductCardProps> = ({
           type="button"
           className="absolute bottom-4 right-4 translate-y-4 opacity-0 shadow-lg transition-all duration-300 group-hover:translate-y-0 group-hover:opacity-100 bg-white p-3 rounded-full text-black hover:bg-gray-100"
         >
-          <ShoppingBag size={20} />
+          <Info size={20} />
         </button>
       </div>
       <div className="flex justify-between items-center">
