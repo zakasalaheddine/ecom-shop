@@ -21,12 +21,26 @@ interface Product {
   typeLabel: string;
 }
 
+interface Category {
+  _id: Id<"categories">;
+  label: string;
+  imageUrl: string;
+}
+
+interface Type {
+  _id: Id<"types">;
+  label: string;
+  imageUrl: string;
+}
+
 interface ProductListProps {
   products: Product[] | undefined;
+  categories: Category[] | undefined;
+  types: Type[] | undefined;
   onEdit: (product: Product) => void;
 }
 
-export function ProductList({ products, onEdit }: ProductListProps) {
+export function ProductList({ products, categories, types, onEdit }: ProductListProps) {
   const deleteProduct = useMutation(api.products.remove);
 
   const handleDelete = async (id: Id<"products">) => {
@@ -54,14 +68,16 @@ export function ProductList({ products, onEdit }: ProductListProps) {
       accessorKey: "title",
       header: "Title",
       cell: ({ row }) => (
-        <div className="font-medium text-gray-900">{row.original.title}</div>
+        <div className="font-medium text-gray-900 max-w-md break-words whitespace-normal">
+          {row.original.title}
+        </div>
       ),
     },
     {
       accessorKey: "price",
       header: "Price",
       cell: ({ row }) => (
-        <div className="text-gray-900">
+        <div className="text-gray-900 whitespace-nowrap">
           ${row.original.price.toFixed(2)}
         </div>
       ),
@@ -70,7 +86,7 @@ export function ProductList({ products, onEdit }: ProductListProps) {
       accessorKey: "categoryLabel",
       header: "Category",
       cell: ({ row }) => (
-        <span className="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-blue-100 text-blue-800">
+        <span className="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-blue-100 text-blue-800 whitespace-nowrap">
           {row.original.categoryLabel}
         </span>
       ),
@@ -79,7 +95,7 @@ export function ProductList({ products, onEdit }: ProductListProps) {
       accessorKey: "typeLabel",
       header: "Type",
       cell: ({ row }) => (
-        <span className="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-green-100 text-green-800">
+        <span className="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-green-100 text-green-800 whitespace-nowrap">
           {row.original.typeLabel}
         </span>
       ),
@@ -88,7 +104,7 @@ export function ProductList({ products, onEdit }: ProductListProps) {
       id: "actions",
       header: "Actions",
       cell: ({ row }) => (
-        <div className="flex gap-2">
+        <div className="flex gap-2 whitespace-nowrap">
           <button
             type="button"
             onClick={() => onEdit(row.original)}
@@ -125,11 +141,36 @@ export function ProductList({ products, onEdit }: ProductListProps) {
     );
   }
 
+  // Prepare filter options
+  const categoryOptions = categories?.map((cat) => ({
+    label: cat.label,
+    value: cat.label,
+  })) || [];
+
+  const typeOptions = types?.map((type) => ({
+    label: type.label,
+    value: type.label,
+  })) || [];
+
+  const filters = [
+    {
+      columnId: "categoryLabel",
+      label: "Category",
+      options: categoryOptions,
+    },
+    {
+      columnId: "typeLabel",
+      label: "Type",
+      options: typeOptions,
+    },
+  ];
+
   return (
     <DataTable
       columns={columns}
       data={products}
       searchPlaceholder="Search products..."
+      filters={filters}
     />
   );
 }

@@ -202,7 +202,12 @@ export default function AdminPage() {
                 </div>
               </div>
 
-              <ProductList products={products} onEdit={handleEditProduct} />
+              <ProductList
+                products={products}
+                categories={categories}
+                types={types}
+                onEdit={handleEditProduct}
+              />
             </div>
           )}
 

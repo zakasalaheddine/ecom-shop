@@ -14,11 +14,23 @@ import {
 import { useState } from "react";
 import { ChevronDown, ChevronUp, Search } from "lucide-react";
 
+interface FilterOption {
+  label: string;
+  value: string;
+}
+
+interface ColumnFilter {
+  columnId: string;
+  label: string;
+  options: FilterOption[];
+}
+
 interface DataTableProps<TData, TValue> {
   columns: ColumnDef<TData, TValue>[];
   data: TData[];
   searchPlaceholder?: string;
   searchColumn?: string;
+  filters?: ColumnFilter[];
 }
 
 export function DataTable<TData, TValue>({
@@ -26,6 +38,7 @@ export function DataTable<TData, TValue>({
   data,
   searchPlaceholder = "Search...",
   searchColumn,
+  filters = [],
 }: DataTableProps<TData, TValue>) {
   const [sorting, setSorting] = useState<SortingState>([]);
   const [columnFilters, setColumnFilters] = useState<ColumnFiltersState>([]);
@@ -55,9 +68,9 @@ export function DataTable<TData, TValue>({
 
   return (
     <div className="space-y-4">
-      {/* Search Bar */}
-      <div className="flex items-center gap-2">
-        <div className="relative flex-1 max-w-sm">
+      {/* Search Bar and Filters */}
+      <div className="flex items-center gap-3 flex-wrap">
+        <div className="relative flex-1 min-w-[200px] max-w-sm">
           <Search className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-gray-400" />
           <input
             type="text"
@@ -67,6 +80,41 @@ export function DataTable<TData, TValue>({
             className="w-full pl-10 pr-4 py-2 border border-gray-300 rounded-md focus:ring-1 focus:ring-black focus:outline-none"
           />
         </div>
+
+        {/* Filter Dropdowns */}
+        {filters.map((filter) => {
+          const currentFilter = columnFilters.find(
+            (f) => f.id === filter.columnId
+          );
+          const currentValue = currentFilter?.value as string | undefined;
+
+          return (
+            <div key={filter.columnId} className="flex items-center gap-2">
+              <label className="text-sm font-medium text-gray-700">
+                {filter.label}:
+              </label>
+              <select
+                value={currentValue ?? ""}
+                onChange={(e) => {
+                  const value = e.target.value;
+                  if (value) {
+                    table.getColumn(filter.columnId)?.setFilterValue(value);
+                  } else {
+                    table.getColumn(filter.columnId)?.setFilterValue(undefined);
+                  }
+                }}
+                className="px-3 py-2 border border-gray-300 rounded-md focus:ring-1 focus:ring-black focus:outline-none text-sm"
+              >
+                <option value="">All</option>
+                {filter.options.map((option) => (
+                  <option key={option.value} value={option.value}>
+                    {option.label}
+                  </option>
+                ))}
+              </select>
+            </div>
+          );
+        })}
       </div>
 
       {/* Table */}
@@ -124,7 +172,7 @@ export function DataTable<TData, TValue>({
                     className="hover:bg-gray-50 transition-colors"
                   >
                     {row.getVisibleCells().map((cell) => (
-                      <td key={cell.id} className="px-6 py-4 whitespace-nowrap">
+                      <td key={cell.id} className="px-6 py-4">
                         {flexRender(
                           cell.column.columnDef.cell,
                           cell.getContext()
