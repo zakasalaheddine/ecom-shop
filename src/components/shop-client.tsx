@@ -14,7 +14,7 @@ interface Product {
   images: string[];
   description: string;
   tags: string[];
-  etsyId?: string;
+  listing_url?: string;
 }
 
 interface Category {
@@ -87,7 +87,7 @@ export function ShopClient({ initialProducts, categories }: ShopClientProps) {
               images: product.images,
               description: product.description,
               tags: product.tags,
-              etsyId: product.etsyId,
+              listing_url: product.listing_url,
             }}
             onSelect={(p) => handleProductClick({
               _id: p.id,
@@ -98,7 +98,7 @@ export function ShopClient({ initialProducts, categories }: ShopClientProps) {
               images: p.images,
               description: p.description,
               tags: p.tags,
-              etsyId: p.etsyId,
+              listing_url: p.listing_url,
             })}
           />
         ))}
@@ -187,7 +187,7 @@ export function ShopClient({ initialProducts, categories }: ShopClientProps) {
                     </div>
 
                     <a
-                      href={selectedProduct.etsyId ? `https://www.etsy.com/listing/${selectedProduct.etsyId}` : '#'}
+                      href={selectedProduct.listing_url || '#'}
                       target="_blank"
                       rel="noopener noreferrer"
                       className="w-full bg-black text-white py-4 rounded-md font-medium hover:bg-gray-800 transition-colors flex items-center justify-center gap-2"

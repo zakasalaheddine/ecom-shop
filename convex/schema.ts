@@ -18,6 +18,6 @@ export default defineSchema({
     images: v.array(v.string()),
     description: v.string(),
     tags: v.array(v.string()),
-    etsyId: v.optional(v.string()),
+    listing_url: v.optional(v.string()),
   }),
 });

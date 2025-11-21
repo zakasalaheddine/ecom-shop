@@ -16,7 +16,7 @@ interface Product {
   images: string[];
   description: string;
   tags: string[];
-  etsyId?: string;
+  listing_url?: string;
   categoryLabel: string;
   typeLabel: string;
 }

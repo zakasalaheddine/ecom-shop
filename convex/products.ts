@@ -32,7 +32,7 @@ export const create = mutation({
     images: v.array(v.string()),
     description: v.string(),
     tags: v.array(v.string()),
-    etsyId: v.optional(v.string()),
+    listing_url: v.optional(v.string()),
   },
   handler: async (ctx, args) => {
     return await ctx.db.insert("products", {
@@ -43,7 +43,7 @@ export const create = mutation({
       images: args.images,
       description: args.description,
       tags: args.tags,
-      etsyId: args.etsyId,
+      listing_url: args.listing_url,
     });
   },
 });
@@ -58,7 +58,7 @@ export const update = mutation({
     images: v.array(v.string()),
     description: v.string(),
     tags: v.array(v.string()),
-    etsyId: v.optional(v.string()),
+    listing_url: v.optional(v.string()),
   },
   handler: async (ctx, args) => {
     const { id, ...data } = args;
@@ -86,7 +86,7 @@ export const bulkImport = mutation({
         images: v.array(v.string()),
         description: v.string(),
         tags: v.array(v.string()),
-        etsyId: v.optional(v.string()),
+        listing_url: v.optional(v.string()),
       })
     ),
   },
@@ -101,7 +101,7 @@ export const bulkImport = mutation({
           images: product.images,
           description: product.description,
           tags: product.tags,
-          etsyId: product.etsyId,
+          listing_url: product.listing_url,
         })
       )
     );

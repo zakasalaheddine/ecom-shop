@@ -12,7 +12,7 @@ interface ProductForm {
   images: string;
   description: string;
   tags: string;
-  etsyId: string;
+  listing_url: string;
 }
 
 interface ProductModalProps {
@@ -68,7 +68,7 @@ export function ProductModal({
           images: imagesArray,
           description: productForm.description,
           tags: tagsArray,
-          etsyId: productForm.etsyId || undefined,
+          listing_url: productForm.listing_url || undefined,
         });
       } else {
         await createProduct({
@@ -79,7 +79,7 @@ export function ProductModal({
           images: imagesArray,
           description: productForm.description,
           tags: tagsArray,
-          etsyId: productForm.etsyId || undefined,
+          listing_url: productForm.listing_url || undefined,
         });
       }
       onClose();
@@ -91,7 +91,7 @@ export function ProductModal({
         images: "",
         description: "",
         tags: "",
-        etsyId: "",
+        listing_url: "",
       });
     } catch (error) {
       console.error("Error saving product:", error);
@@ -236,17 +236,17 @@ export function ProductModal({
           </div>
 
           <div>
-            <label htmlFor="product-etsyid" className="block text-sm font-medium text-gray-700 mb-1">
-              Etsy ID (optional)
+            <label htmlFor="product-listing-url" className="block text-sm font-medium text-gray-700 mb-1">
+              Listing URL (optional)
             </label>
             <input
-              id="product-etsyid"
+              id="product-listing-url"
               type="text"
-              value={productForm.etsyId}
+              value={productForm.listing_url}
               onChange={(e) =>
-                setProductForm({ ...productForm, etsyId: e.target.value })
+                setProductForm({ ...productForm, listing_url: e.target.value })
               }
-              placeholder="12345678"
+              placeholder="https://www.etsy.com/listing/12345678"
               className="w-full px-3 py-2 border border-gray-300 rounded-md focus:ring-1 focus:ring-black focus:outline-none"
             />
           </div>
