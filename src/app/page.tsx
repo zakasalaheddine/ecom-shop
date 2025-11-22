@@ -3,6 +3,55 @@ import { ShopClient } from "@/components/shop-client";
 import Link from "next/link";
 import { fetchQuery } from "convex/nextjs";
 import { api } from "../../convex/_generated/api";
+import { siteConfig } from "@/config/site";
+import type { Metadata } from "next";
+
+export const metadata: Metadata = {
+  title: {
+    default: siteConfig.name,
+    template: `%s | ${siteConfig.name}`,
+  },
+  description: siteConfig.description,
+  keywords: [
+    "Design",
+    "ZakaDesignStudio",
+    "Designs",
+    "Art",
+  ],
+  authors: [
+    {
+      name: "ZakaDesignStudio",
+      url: siteConfig.url,
+    },
+  ],
+  creator: "ZakaDesignStudio",
+  openGraph: {
+    type: "website",
+    locale: "en_US",
+    url: siteConfig.url,
+    title: siteConfig.name,
+    description: siteConfig.description,
+    siteName: siteConfig.name,
+    images: [
+      {
+        url: siteConfig.ogImage,
+        width: 1200,
+        height: 630,
+        alt: siteConfig.name,
+      },
+    ],
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: siteConfig.name,
+    description: siteConfig.description,
+    images: [siteConfig.ogImage],
+    creator: "@teeminimal",
+  },
+  icons: {
+    icon: "/favicon.ico",
+  },
+};
 
 const Page = async () => {
   // Fetch data on the server
@@ -23,28 +72,19 @@ const Page = async () => {
                 <Menu size={24} />
               </button>
               <span className="text-xl font-bold tracking-tighter text-gray-900 dark:text-white">
-                TeeMinimal.
+                {siteConfig.name}
               </span>
             </div>
             <div className="hidden md:flex space-x-8 text-sm font-medium text-gray-600 dark:text-gray-400">
-              <Link
-                href="/"
-                className="text-black dark:text-white hover:text-black dark:hover:text-white transition-colors"
-              >
-                Shop
-              </Link>
-              <Link
-                href="/about"
-                className="hover:text-black dark:hover:text-white transition-colors"
-              >
-                About
-              </Link>
-              <Link
-                href="/journal"
-                className="hover:text-black dark:hover:text-white transition-colors"
-              >
-                Journal
-              </Link>
+              {siteConfig.mainNav.map((item) => (
+                <Link
+                  key={item.href}
+                  href={item.href}
+                  className="text-black dark:text-white hover:text-black dark:hover:text-white transition-colors"
+                >
+                  {item.title}
+                </Link>
+              ))}
             </div>
           </div>
         </div>
@@ -59,35 +99,38 @@ const Page = async () => {
       <footer className="bg-white dark:bg-gray-950 border-t border-gray-100 dark:border-gray-800">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12 grid grid-cols-1 md:grid-cols-3 gap-8">
           <div>
-            <h3 className="text-lg font-bold mb-4 text-gray-900 dark:text-white">TeeMinimal.</h3>
+            <h3 className="text-lg font-bold mb-4 text-gray-900 dark:text-white">
+              {siteConfig.name}
+            </h3>
             <p className="text-gray-500 dark:text-gray-400 text-sm">
               Redefining casual wear with art and intention.
               <br />
               Est. 2024
             </p>
           </div>
+          {siteConfig.footerNav.map((section) => (
+            <div key={section.title}>
+              <h4 className="font-medium mb-4 text-gray-900 dark:text-white">
+                {section.title}
+              </h4>
+              <ul className="space-y-2 text-sm text-gray-500 dark:text-gray-400">
+                {section.items.map((item) => (
+                  <li key={item.href}>
+                    <Link
+                      href={item.href}
+                      className="hover:text-black dark:hover:text-white"
+                    >
+                      {item.title}
+                    </Link>
+                  </li>
+                ))}
+              </ul>
+            </div>
+          ))}
           <div>
-            <h4 className="font-medium mb-4 text-gray-900 dark:text-white">Help</h4>
-            <ul className="space-y-2 text-sm text-gray-500 dark:text-gray-400">
-              <li>
-                <Link href="/shipping-returns" className="hover:text-black dark:hover:text-white">
-                  Shipping & Returns
-                </Link>
-              </li>
-              <li>
-                <Link href="/size-guide" className="hover:text-black dark:hover:text-white">
-                  Size Guide
-                </Link>
-              </li>
-              <li>
-                <Link href="/contact-us" className="hover:text-black dark:hover:text-white">
-                  Contact Us
-                </Link>
-              </li>
-            </ul>
-          </div>
-          <div>
-            <h4 className="font-medium mb-4 text-gray-900 dark:text-white">Stay Updated</h4>
+            <h4 className="font-medium mb-4 text-gray-900 dark:text-white">
+              Stay Updated
+            </h4>
             <div className="flex">
               <input
                 type="email"
@@ -104,7 +147,7 @@ const Page = async () => {
           </div>
         </div>
         <div className="border-t border-gray-100 dark:border-gray-800 py-6 text-center text-xs text-gray-400 dark:text-gray-500">
-          © 2024 TeeMinimal. All rights reserved.
+          © {new Date().getFullYear()} {siteConfig.name} All rights reserved.
         </div>
       </footer>
     </div>
