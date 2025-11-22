@@ -21,4 +21,13 @@ export default defineSchema({
     tags: v.array(v.string()),
     listing_url: v.optional(v.string()),
   }),
+  contactMessages: defineTable({
+    name: v.string(),
+    email: v.string(),
+    subject: v.string(),
+    message: v.string(),
+    status: v.string(), // "new", "read", "replied", "archived"
+    createdAt: v.number(),
+  }).index("by_status", ["status"])
+    .index("by_created_at", ["createdAt"]),
 });
