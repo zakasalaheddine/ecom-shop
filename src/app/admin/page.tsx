@@ -115,13 +115,13 @@ export default function AdminPage() {
   }
 
   return (
-    <div className="min-h-screen bg-gray-50">
+    <div className="min-h-screen bg-gray-50 dark:bg-gray-950">
       {/* Header */}
-      <header className="bg-white border-b border-gray-200 ">
+      <header className="bg-white dark:bg-gray-900 border-b border-gray-200 dark:border-gray-800">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6 flex justify-between items-center">
           <div>
-            <h1 className="text-3xl font-bold text-gray-900">Admin Dashboard</h1>
-            <p className="text-gray-500 mt-1">Manage your products, categories, and types</p>
+            <h1 className="text-3xl font-bold text-gray-900 dark:text-white">Admin Dashboard</h1>
+            <p className="text-gray-500 dark:text-gray-400 mt-1">Manage your products, categories, and types</p>
           </div>
           <UserButton />
         </div>
@@ -129,15 +129,15 @@ export default function AdminPage() {
 
       {/* Tabs */}
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 mt-6">
-        <div className="border-b border-gray-200">
+        <div className="border-b border-gray-200 dark:border-gray-800">
           <nav className="flex space-x-8">
             <button
               type="button"
               onClick={() => setActiveTab('products')}
               className={`py-4 px-1 border-b-2 font-medium text-sm transition-colors ${
                 activeTab === 'products'
-                  ? 'border-black text-black'
-                  : 'border-transparent text-gray-500 hover:text-gray-700 hover:border-gray-300'
+                  ? 'border-black dark:border-white text-black dark:text-white'
+                  : 'border-transparent text-gray-500 dark:text-gray-400 hover:text-gray-700 dark:hover:text-gray-300 hover:border-gray-300 dark:hover:border-gray-600'
               }`}
             >
               <Package className="inline-block mr-2 h-4 w-4" />
@@ -148,8 +148,8 @@ export default function AdminPage() {
               onClick={() => setActiveTab('categories')}
               className={`py-4 px-1 border-b-2 font-medium text-sm transition-colors ${
                 activeTab === 'categories'
-                  ? 'border-black text-black'
-                  : 'border-transparent text-gray-500 hover:text-gray-700 hover:border-gray-300'
+                  ? 'border-black dark:border-white text-black dark:text-white'
+                  : 'border-transparent text-gray-500 dark:text-gray-400 hover:text-gray-700 dark:hover:text-gray-300 hover:border-gray-300 dark:hover:border-gray-600'
               }`}
             >
               <Tag className="inline-block mr-2 h-4 w-4" />
@@ -160,8 +160,8 @@ export default function AdminPage() {
               onClick={() => setActiveTab('types')}
               className={`py-4 px-1 border-b-2 font-medium text-sm transition-colors ${
                 activeTab === 'types'
-                  ? 'border-black text-black'
-                  : 'border-transparent text-gray-500 hover:text-gray-700 hover:border-gray-300'
+                  ? 'border-black dark:border-white text-black dark:text-white'
+                  : 'border-transparent text-gray-500 dark:text-gray-400 hover:text-gray-700 dark:hover:text-gray-300 hover:border-gray-300 dark:hover:border-gray-600'
               }`}
             >
               <Layers className="inline-block mr-2 h-4 w-4" />
@@ -176,7 +176,7 @@ export default function AdminPage() {
           {activeTab === 'products' && (
             <div>
               <div className="flex justify-between items-center mb-6">
-                <h2 className="text-xl font-semibold text-gray-900">Products ({products?.length || 0})</h2>
+                <h2 className="text-xl font-semibold text-gray-900 dark:text-white">Products ({products?.length || 0})</h2>
                 <div className="flex gap-3">
                   <ImportExport type="products" />
                   <button
@@ -194,7 +194,7 @@ export default function AdminPage() {
                       })
                       setShowProductModal(true)
                     }}
-                    className="bg-black text-white px-4 py-2 rounded-md font-medium hover:bg-gray-800 transition-colors flex items-center gap-2"
+                    className="bg-black dark:bg-white text-white dark:text-black px-4 py-2 rounded-md font-medium hover:bg-gray-800 dark:hover:bg-gray-200 transition-colors flex items-center gap-2"
                   >
                     <Plus className="h-4 w-4" />
                     Add Product
@@ -215,7 +215,7 @@ export default function AdminPage() {
           {activeTab === 'categories' && (
             <div>
               <div className="flex justify-between items-center mb-6">
-                <h2 className="text-xl font-semibold text-gray-900">Categories ({categories?.length || 0})</h2>
+                <h2 className="text-xl font-semibold text-gray-900 dark:text-white">Categories ({categories?.length || 0})</h2>
                 <div className="flex gap-3">
                   <ImportExport type="categories" />
                   <button
@@ -224,7 +224,7 @@ export default function AdminPage() {
                       setCategoryForm({ label: '', imageUrl: '' })
                       setShowCategoryModal(true)
                     }}
-                    className="bg-black text-white px-4 py-2 rounded-md font-medium hover:bg-gray-800 transition-colors flex items-center gap-2"
+                    className="bg-black dark:bg-white text-white dark:text-black px-4 py-2 rounded-md font-medium hover:bg-gray-800 dark:hover:bg-gray-200 transition-colors flex items-center gap-2"
                   >
                     <Plus className="h-4 w-4" />
                     Add Category
@@ -240,7 +240,7 @@ export default function AdminPage() {
           {activeTab === 'types' && (
             <div>
               <div className="flex justify-between items-center mb-6">
-                <h2 className="text-xl font-semibold text-gray-900">Types ({types?.length || 0})</h2>
+                <h2 className="text-xl font-semibold text-gray-900 dark:text-white">Types ({types?.length || 0})</h2>
                 <div className="flex gap-3">
                   <ImportExport type="types" />
                   <button
@@ -249,7 +249,7 @@ export default function AdminPage() {
                       setTypeForm({ label: '', imageUrl: '' })
                       setShowTypeModal(true)
                     }}
-                    className="bg-black text-white px-4 py-2 rounded-md font-medium hover:bg-gray-800 transition-colors flex items-center gap-2"
+                    className="bg-black dark:bg-white text-white dark:text-black px-4 py-2 rounded-md font-medium hover:bg-gray-800 dark:hover:bg-gray-200 transition-colors flex items-center gap-2"
                   >
                     <Plus className="h-4 w-4" />
                     Add Type

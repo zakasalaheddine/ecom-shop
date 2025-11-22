@@ -32,7 +32,7 @@ export function TypeList({ types, onEdit }: TypeListProps) {
       accessorKey: "imageUrl",
       header: "Image",
       cell: ({ row }) => (
-        <div className="w-16 h-16 overflow-hidden rounded-md bg-gray-100">
+        <div className="w-16 h-16 overflow-hidden rounded-md bg-gray-100 dark:bg-gray-800">
           <img
             src={row.original.imageUrl}
             alt={row.original.label}
@@ -46,7 +46,7 @@ export function TypeList({ types, onEdit }: TypeListProps) {
       accessorKey: "label",
       header: "Label",
       cell: ({ row }) => (
-        <div className="font-medium text-gray-900">{row.original.label}</div>
+        <div className="font-medium text-gray-900 dark:text-white">{row.original.label}</div>
       ),
     },
     {
@@ -57,7 +57,7 @@ export function TypeList({ types, onEdit }: TypeListProps) {
           <button
             type="button"
             onClick={() => onEdit(row.original)}
-            className="inline-flex items-center gap-1 px-3 py-1.5 bg-gray-100 text-gray-700 rounded text-sm font-medium hover:bg-gray-200 transition-colors"
+            className="inline-flex items-center gap-1 px-3 py-1.5 bg-gray-100 dark:bg-gray-800 text-gray-700 dark:text-gray-300 rounded text-sm font-medium hover:bg-gray-200 dark:hover:bg-gray-700 transition-colors"
           >
             <Edit2 className="h-3 w-3" />
             Edit
@@ -65,7 +65,7 @@ export function TypeList({ types, onEdit }: TypeListProps) {
           <button
             type="button"
             onClick={() => handleDelete(row.original._id)}
-            className="inline-flex items-center gap-1 px-3 py-1.5 bg-red-50 text-red-600 rounded text-sm font-medium hover:bg-red-100 transition-colors"
+            className="inline-flex items-center gap-1 px-3 py-1.5 bg-red-50 dark:bg-red-900/20 text-red-600 dark:text-red-400 rounded text-sm font-medium hover:bg-red-100 dark:hover:bg-red-900/30 transition-colors"
           >
             <Trash2 className="h-3 w-3" />
             Delete
@@ -78,12 +78,12 @@ export function TypeList({ types, onEdit }: TypeListProps) {
 
   if (!types || types.length === 0) {
     return (
-      <div className="text-center py-16 bg-white rounded-lg border border-gray-200">
-        <Layers className="mx-auto h-12 w-12 text-gray-400" />
-        <h3 className="mt-2 text-sm font-medium text-gray-900">
+      <div className="text-center py-16 bg-white dark:bg-gray-900 rounded-lg border border-gray-200 dark:border-gray-800">
+        <Layers className="mx-auto h-12 w-12 text-gray-400 dark:text-gray-500" />
+        <h3 className="mt-2 text-sm font-medium text-gray-900 dark:text-white">
           No types
         </h3>
-        <p className="mt-1 text-sm text-gray-500">
+        <p className="mt-1 text-sm text-gray-500 dark:text-gray-400">
           Get started by creating a new type.
         </p>
       </div>

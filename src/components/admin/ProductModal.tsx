@@ -108,7 +108,7 @@ export function ProductModal({
       <form onSubmit={handleSubmit}>
         <div className="space-y-4">
           <div>
-            <label htmlFor="product-title" className="block text-sm font-medium text-gray-700 mb-1">
+            <label htmlFor="product-title" className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">
               Title
             </label>
             <input
@@ -119,12 +119,12 @@ export function ProductModal({
               onChange={(e) =>
                 setProductForm({ ...productForm, title: e.target.value })
               }
-              className="w-full px-3 py-2 border border-gray-300 rounded-md focus:ring-1 focus:ring-black focus:outline-none"
+              className="w-full px-3 py-2 border border-gray-300 dark:border-gray-700 rounded-md focus:ring-1 focus:ring-black dark:focus:ring-white focus:outline-none bg-white dark:bg-gray-800 text-gray-900 dark:text-white"
             />
           </div>
 
           <div>
-            <label htmlFor="product-price" className="block text-sm font-medium text-gray-700 mb-1">
+            <label htmlFor="product-price" className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">
               Price
             </label>
             <input
@@ -136,19 +136,19 @@ export function ProductModal({
               onChange={(e) =>
                 setProductForm({ ...productForm, price: e.target.value })
               }
-              className="w-full px-3 py-2 border border-gray-300 rounded-md focus:ring-1 focus:ring-black focus:outline-none"
+              className="w-full px-3 py-2 border border-gray-300 dark:border-gray-700 rounded-md focus:ring-1 focus:ring-black dark:focus:ring-white focus:outline-none bg-white dark:bg-gray-800 text-gray-900 dark:text-white"
             />
           </div>
 
           <div>
-            <label className="block text-sm font-medium text-gray-700 mb-2">
+            <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
               Categories (select at least one)
             </label>
-            <div className="space-y-2 max-h-48 overflow-y-auto border border-gray-300 rounded-md p-3">
+            <div className="space-y-2 max-h-48 overflow-y-auto border border-gray-300 dark:border-gray-700 rounded-md p-3 bg-white dark:bg-gray-800">
               {categories?.map((cat) => (
                 <label
                   key={cat._id}
-                  className="flex items-center gap-2 cursor-pointer hover:bg-gray-50 p-1 rounded"
+                  className="flex items-center gap-2 cursor-pointer hover:bg-gray-50 dark:hover:bg-gray-700 p-1 rounded"
                 >
                   <input
                     type="checkbox"
@@ -168,16 +168,16 @@ export function ProductModal({
                         });
                       }
                     }}
-                    className="h-4 w-4 text-black focus:ring-black border-gray-300 rounded"
+                    className="h-4 w-4 text-black dark:text-white focus:ring-black dark:focus:ring-white border-gray-300 dark:border-gray-600 rounded"
                   />
-                  <span className="text-sm text-gray-700">{cat.label}</span>
+                  <span className="text-sm text-gray-700 dark:text-gray-300">{cat.label}</span>
                 </label>
               ))}
             </div>
           </div>
 
           <div>
-            <label htmlFor="product-type" className="block text-sm font-medium text-gray-700 mb-1">
+            <label htmlFor="product-type" className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">
               Type
             </label>
             <select
@@ -187,7 +187,7 @@ export function ProductModal({
               onChange={(e) =>
                 setProductForm({ ...productForm, type: e.target.value })
               }
-              className="w-full px-3 py-2 border border-gray-300 rounded-md focus:ring-1 focus:ring-black focus:outline-none"
+              className="w-full px-3 py-2 border border-gray-300 dark:border-gray-700 rounded-md focus:ring-1 focus:ring-black dark:focus:ring-white focus:outline-none bg-white dark:bg-gray-800 text-gray-900 dark:text-white"
             >
               <option value="">Select a type</option>
               {types?.map((type) => (
@@ -199,7 +199,7 @@ export function ProductModal({
           </div>
 
           <div>
-            <label htmlFor="product-images" className="block text-sm font-medium text-gray-700 mb-1">
+            <label htmlFor="product-images" className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">
               Image URLs (comma-separated)
             </label>
             <textarea
@@ -211,12 +211,12 @@ export function ProductModal({
                 setProductForm({ ...productForm, images: e.target.value })
               }
               placeholder="https://example.com/image1.jpg, https://example.com/image2.jpg"
-              className="w-full px-3 py-2 border border-gray-300 rounded-md focus:ring-1 focus:ring-black focus:outline-none"
+              className="w-full px-3 py-2 border border-gray-300 dark:border-gray-700 rounded-md focus:ring-1 focus:ring-black dark:focus:ring-white focus:outline-none bg-white dark:bg-gray-800 text-gray-900 dark:text-white placeholder:text-gray-500 dark:placeholder:text-gray-400"
             />
           </div>
 
           <div>
-            <label htmlFor="product-description" className="block text-sm font-medium text-gray-700 mb-1">
+            <label htmlFor="product-description" className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">
               Description
             </label>
             <textarea
@@ -228,12 +228,12 @@ export function ProductModal({
                 setProductForm({ ...productForm, description: e.target.value })
               }
               placeholder="Product description..."
-              className="w-full px-3 py-2 border border-gray-300 rounded-md focus:ring-1 focus:ring-black focus:outline-none"
+              className="w-full px-3 py-2 border border-gray-300 dark:border-gray-700 rounded-md focus:ring-1 focus:ring-black dark:focus:ring-white focus:outline-none bg-white dark:bg-gray-800 text-gray-900 dark:text-white placeholder:text-gray-500 dark:placeholder:text-gray-400"
             />
           </div>
 
           <div>
-            <label htmlFor="product-tags" className="block text-sm font-medium text-gray-700 mb-1">
+            <label htmlFor="product-tags" className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">
               Tags (comma-separated)
             </label>
             <input
@@ -245,12 +245,12 @@ export function ProductModal({
                 setProductForm({ ...productForm, tags: e.target.value })
               }
               placeholder="tag1, tag2, tag3"
-              className="w-full px-3 py-2 border border-gray-300 rounded-md focus:ring-1 focus:ring-black focus:outline-none"
+              className="w-full px-3 py-2 border border-gray-300 dark:border-gray-700 rounded-md focus:ring-1 focus:ring-black dark:focus:ring-white focus:outline-none bg-white dark:bg-gray-800 text-gray-900 dark:text-white placeholder:text-gray-500 dark:placeholder:text-gray-400"
             />
           </div>
 
           <div>
-            <label htmlFor="product-listing-url" className="block text-sm font-medium text-gray-700 mb-1">
+            <label htmlFor="product-listing-url" className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">
               Listing URL (optional)
             </label>
             <input
@@ -261,22 +261,22 @@ export function ProductModal({
                 setProductForm({ ...productForm, listing_url: e.target.value })
               }
               placeholder="https://www.etsy.com/listing/12345678"
-              className="w-full px-3 py-2 border border-gray-300 rounded-md focus:ring-1 focus:ring-black focus:outline-none"
+              className="w-full px-3 py-2 border border-gray-300 dark:border-gray-700 rounded-md focus:ring-1 focus:ring-black dark:focus:ring-white focus:outline-none bg-white dark:bg-gray-800 text-gray-900 dark:text-white placeholder:text-gray-500 dark:placeholder:text-gray-400"
             />
           </div>
         </div>
 
-        <div className="bg-gray-50 -mx-4 -mb-4 px-4 py-3 mt-6 sm:flex sm:flex-row-reverse gap-2">
+        <div className="bg-gray-50 dark:bg-gray-800 -mx-4 -mb-4 px-4 py-3 mt-6 sm:flex sm:flex-row-reverse gap-2">
           <button
             type="submit"
-            className="w-full sm:w-auto bg-black text-white px-4 py-2 rounded-md font-medium hover:bg-gray-800 transition-colors"
+            className="w-full sm:w-auto bg-black dark:bg-white text-white dark:text-black px-4 py-2 rounded-md font-medium hover:bg-gray-800 dark:hover:bg-gray-200 transition-colors"
           >
             {productForm.id ? "Update" : "Create"}
           </button>
           <button
             type="button"
             onClick={onClose}
-            className="mt-3 sm:mt-0 w-full sm:w-auto bg-white text-gray-700 px-4 py-2 rounded-md font-medium border border-gray-300 hover:bg-gray-50 transition-colors"
+            className="mt-3 sm:mt-0 w-full sm:w-auto bg-white dark:bg-gray-900 text-gray-700 dark:text-gray-300 px-4 py-2 rounded-md font-medium border border-gray-300 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-800 transition-colors"
           >
             Cancel
           </button>

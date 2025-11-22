@@ -43,26 +43,26 @@ export const CategoryFilter: React.FC<CategoryFilterProps> = ({
               relative w-20 h-20 md:w-24 md:h-24 rounded-full overflow-hidden border-2 transition-all duration-300
               ${
                 activeCategory === category._id
-                  ? "border-black p-1"
+                  ? "border-black dark:border-white p-1"
                   : "border-transparent group-hover:scale-105"
               }
             `}
             >
-              <div className="w-full h-full rounded-full overflow-hidden relative bg-gray-100">
+              <div className="w-full h-full rounded-full overflow-hidden relative bg-gray-100 dark:bg-gray-800">
                 <img
                   src={category.imageUrl || "/placeholder.jpg"}
                   alt={category.label}
                   className="w-full h-full object-cover object-center"
                 />
                 {activeCategory !== category._id && (
-                  <div className="absolute inset-0 bg-black/0 group-hover:bg-black/10 transition-colors" />
+                  <div className="absolute inset-0 bg-black/0 group-hover:bg-black/10 dark:group-hover:bg-white/10 transition-colors" />
                 )}
               </div>
             </div>
             <span
               className={`
               text-xs md:text-sm font-medium transition-colors
-              ${activeCategory === category._id ? "text-black" : "text-gray-500 group-hover:text-gray-800"}
+              ${activeCategory === category._id ? "text-black dark:text-white" : "text-gray-500 dark:text-gray-400 group-hover:text-gray-800 dark:group-hover:text-gray-200"}
             `}
             >
               {category.label}

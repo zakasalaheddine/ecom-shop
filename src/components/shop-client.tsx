@@ -64,13 +64,13 @@ export function ShopClient({ initialProducts, categories }: ShopClientProps) {
       </div>
 
       {/* Section Header */}
-      <div className="flex items-center justify-between mb-8 border-b border-gray-100 pb-4">
-        <h2 className="text-xl md:text-2xl font-bold text-gray-900">
+      <div className="flex items-center justify-between mb-8 border-b border-gray-100 dark:border-gray-800 pb-4">
+        <h2 className="text-xl md:text-2xl font-bold text-gray-900 dark:text-white">
           {activeCategoryLabel === "all"
             ? "Latest Arrivals"
             : `${activeCategoryLabel.charAt(0).toUpperCase() + activeCategoryLabel.slice(1)} Collection`}
         </h2>
-        <span className="text-sm text-gray-500">
+        <span className="text-sm text-gray-500 dark:text-gray-400">
           {filteredProducts.length} items
         </span>
       </div>
@@ -106,12 +106,12 @@ export function ShopClient({ initialProducts, categories }: ShopClientProps) {
       </div>
 
       {filteredProducts.length === 0 && (
-        <div className="text-center py-32 text-gray-400 bg-gray-50 rounded-xl">
+        <div className="text-center py-32 text-gray-400 dark:text-gray-500 bg-gray-50 dark:bg-gray-900 rounded-xl">
           <p>No products found in this category.</p>
           <button
             type="button"
             onClick={() => setActiveCategory("all")}
-            className="mt-4 text-black underline text-sm"
+            className="mt-4 text-black dark:text-white underline text-sm"
           >
             View all products
           </button>
@@ -132,12 +132,12 @@ export function ShopClient({ initialProducts, categories }: ShopClientProps) {
               className="fixed inset-0 bg-black bg-opacity-50 transition-opacity backdrop-blur-sm"
             />
 
-            <div className="inline-block transform overflow-hidden rounded-lg bg-white text-left align-bottom shadow-xl transition-all sm:my-8 sm:w-full sm:max-w-4xl sm:align-middle">
-              <div className="relative bg-white px-4 pt-5 pb-4 sm:p-6 sm:pb-4">
+            <div className="inline-block transform overflow-hidden rounded-lg bg-white dark:bg-gray-900 text-left align-bottom shadow-xl transition-all sm:my-8 sm:w-full sm:max-w-4xl sm:align-middle">
+              <div className="relative bg-white dark:bg-gray-900 px-4 pt-5 pb-4 sm:p-6 sm:pb-4">
                 <button
                   type="button"
                   onClick={closeModal}
-                  className="absolute top-4 right-4 text-gray-400 hover:text-gray-600 z-10"
+                  className="absolute top-4 right-4 text-gray-400 dark:text-gray-500 hover:text-gray-600 dark:hover:text-gray-300 z-10"
                 >
                   <span className="sr-only">Close</span>
                   <svg
@@ -157,7 +157,7 @@ export function ShopClient({ initialProducts, categories }: ShopClientProps) {
                 </button>
 
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-                  <div className="aspect-square w-full overflow-hidden rounded-lg bg-gray-100">
+                  <div className="aspect-square w-full overflow-hidden rounded-lg bg-gray-100 dark:bg-gray-800">
                     <img
                       src={selectedProduct.images[0]}
                       alt={selectedProduct.title}
@@ -165,7 +165,7 @@ export function ShopClient({ initialProducts, categories }: ShopClientProps) {
                     />
                   </div>
                   <div className="flex flex-col justify-center">
-                    <h2 className="text-2xl font-bold text-gray-900 mb-2">
+                    <h2 className="text-2xl font-bold text-gray-900 dark:text-white mb-2">
                       {selectedProduct.title}
                     </h2>
                     <div className="flex items-center gap-3 mb-4 flex-wrap">
@@ -173,23 +173,23 @@ export function ShopClient({ initialProducts, categories }: ShopClientProps) {
                         {selectedProduct.categoryLabels.map((label, index) => (
                           <span
                             key={index}
-                            className="text-xs px-2.5 py-0.5 rounded-full bg-gray-100 text-gray-600 font-medium capitalize tracking-wide"
+                            className="text-xs px-2.5 py-0.5 rounded-full bg-gray-100 dark:bg-gray-800 text-gray-600 dark:text-gray-300 font-medium capitalize tracking-wide"
                           >
                             {label}
                           </span>
                         ))}
                       </div>
-                      <span className="text-gray-300">•</span>
-                      <p className="text-lg font-bold text-gray-900">
+                      <span className="text-gray-300 dark:text-gray-600">•</span>
+                      <p className="text-lg font-bold text-gray-900 dark:text-white">
                         ${selectedProduct.price.toFixed(2)}
                       </p>
                     </div>
 
                     <div className="mb-6">
-                      <h3 className="text-sm font-medium text-gray-900">
+                      <h3 className="text-sm font-medium text-gray-900 dark:text-white">
                         Description
                       </h3>
-                      <p className="mt-2 text-gray-500 leading-relaxed">
+                      <p className="mt-2 text-gray-500 dark:text-gray-400 leading-relaxed">
                         {selectedProduct.description}
                       </p>
                     </div>
@@ -198,7 +198,7 @@ export function ShopClient({ initialProducts, categories }: ShopClientProps) {
                       href={selectedProduct.listing_url || '#'}
                       target="_blank"
                       rel="noopener noreferrer"
-                      className="w-full bg-black text-white py-4 rounded-md font-medium hover:bg-gray-800 transition-colors flex items-center justify-center gap-2"
+                      className="w-full bg-black dark:bg-white text-white dark:text-black py-4 rounded-md font-medium hover:bg-gray-800 dark:hover:bg-gray-200 transition-colors flex items-center justify-center gap-2"
                     >
                       <ExternalLink size={18} />
                       View on Etsy
